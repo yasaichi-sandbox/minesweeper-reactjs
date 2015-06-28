@@ -8,7 +8,7 @@ var browserify = require('browserify');
 var watchify = require('watchify');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
-var reactify = require('reactify');
+var babelify = require('babelify');
 var assign = require('lodash.assign');
 var jade = require('gulp-jade');
 var webserver = require('gulp-webserver');
@@ -32,7 +32,7 @@ function bundleScriptsBy(bundler) {
 gulp.task('browserify', function() {
   var bundler = browserify({
     entries: ['./src/javascripts/main.jsx'],
-    transform: [reactify],
+    transform: [babelify],
     debug: true
   });
 
@@ -46,7 +46,7 @@ gulp.task('browserify', function() {
 gulp.task('watchify', function() {
   var customOptions = {
     entries: ['./src/javascripts/main.jsx'],
-    transform: [reactify],
+    transform: [babelify],
     debug: true
   }
   var options = assign({}, watchify.args, customOptions)
