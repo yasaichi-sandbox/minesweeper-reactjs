@@ -18,16 +18,17 @@ class Field extends React.Component {
 
   constructor(props) {
     super(props)
-    let grids = []
 
-    for(let i = 0; i < this.props.nRow * this.props.nCol; i++) {
-      grids[i] = {
-        id: i,
-        isMined: this.props.minedGridIds.indexOf(i) >= 0,
-        status: Grid.STATUS.UNMARKED,
-        text: '',
-      }
-    }
+    let grids = Array
+      .apply(null, { length: this.props.nRow * this.props.nCol })
+      .map((_, i) => {
+        return {
+          id: i,
+          isMined: this.props.minedGridIds.indexOf(i) >= 0,
+          status: Grid.STATUS.UNMARKED,
+          text: '',
+        }
+      })
 
     this.state = {
       grids: grids

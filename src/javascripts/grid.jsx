@@ -20,11 +20,11 @@ class Grid extends React.Component {
     }
   }
 
-  onContextMenu(e) {
+  handleContextMenu(e) {
     e.preventDefault()
   }
 
-  onMouseDown(e) {
+  handleMouseDown(e) {
     if(e.button === 0 && this.props.status !== Grid.STATUS.REVEALED) {
       this.props.onRevealing(this.props.id)
     } else if(e.button === 2 && this.props.status === Grid.STATUS.UNMARKED) {
@@ -36,8 +36,8 @@ class Grid extends React.Component {
     return (
       <div
         style={GridStyle.base}
-        onContextMenu={this.onContextMenu}
-        onMouseDown={this.onMouseDown.bind(this)}>
+        onContextMenu={this.handleContextMenu}
+        onMouseDown={this.handleMouseDown.bind(this)}>
         {this.props.children}
       </div>
     )

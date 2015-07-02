@@ -6,9 +6,9 @@ import MissionStyle from '../stylesheets/mission.js'
 class Mission extends React.Component {
   static get STATUS() {
     return {
-      ONGOING: 'Ongoing',
-      FAILED: 'Failed',
-      COMPLETE: 'Complete'
+      ONGOING: 0,
+      FAILED: 1,
+      COMPLETE: 2
     }
   }
 
@@ -24,31 +24,36 @@ class Mission extends React.Component {
     };
 
     this.state.minedGridIds = Array
-      .apply(null, { length: this.state.nRow * this.state.nCol })
+      .apply(null, { length: this.nGrid })
       .map(Number.call, Number)
       .sort(() => Math.random() - 0.5)
       .slice(0, this.state.nMine)
-
-    console.log(this.state.minedGridIds)
   }
 
-  isCompleteUnder(revealedGridIds) {
-    let nGrid = this.state.nRow * this.state.nCol
+  get nGrid() {
+    return this.state.nRow * this.state.nCol
+  }
 
+  get isComplete() {
     return (
-      revealedGridIds.length === nGrid - this.state.nMine &&
-      revealedGridIds.every(id => this.state.minedGridIds.indexOf(id) < 0)
+      this.state.revealedGridIds.length === this.nGrid - this.state.nMine &&
+      this.state.revealedGridIds.every(id => this.state.minedGridIds.indexOf(id) < 0)
     )
+  }
+
+  componentDidUpdate() {
+    if(this.state.status === Mission.STATUS.COMPLETE) {
+      alert('Mission Complete!')
+    } else if(this.state.status === Mission.STATUS.FAILED) {
+      alert('Mission Failed!')
+    } else if(this.isComplete) {
+      this.setState({ status: Mission.STATUS.COMPLETE })
+    }
   }
 
   handleMineNotFound(gridId) {
     let newGridIds = this.state.revealedGridIds.concat([gridId])
     this.setState({ revealedGridIds: newGridIds })
-
-    // TODO newGridIdsを必要としない実装を考える
-    if(this.isCompleteUnder(newGridIds)) {
-      this.setState({ status: Mission.STATUS.COMPLETE })
-    }
   }
 
   handleMineFound(gridId) {
@@ -63,7 +68,6 @@ class Mission extends React.Component {
   render() {
     return (
       <div style={MissionStyle.base}>
-        <div style={{ textAlign: 'center' }}>{this.state.status}</div>
         <Field
           nRow={this.state.nRow}
           nCol={this.state.nCol}
