@@ -13,32 +13,19 @@ class Mission extends React.Component {
   }
 
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       nRow: 5,
       nCol: 5,
       nMine: 5,
-      status: Mission.STATUS.ONGOING,
-      revealedGridIds: []
-    };
-
-    this.state.minedGridIds = Array
-      .apply(null, { length: this.nGrid })
-      .map(Number.call, Number)
-      .sort(() => Math.random() - 0.5)
-      .slice(0, this.state.nMine)
+      data: [],
+      status: this.constructor.STATUS.ONGOING
+    }
   }
 
-  get nGrid() {
-    return this.state.nRow * this.state.nCol
-  }
-
-  get isComplete() {
-    return (
-      this.state.revealedGridIds.length === this.nGrid - this.state.nMine &&
-      this.state.revealedGridIds.every(id => this.state.minedGridIds.indexOf(id) < 0)
-    )
+  componentDidMount() {
+    this.loadDataFromServer();
   }
 
   componentDidUpdate() {
@@ -46,35 +33,59 @@ class Mission extends React.Component {
       alert('Mission Complete!')
     } else if(this.state.status === Mission.STATUS.FAILED) {
       alert('Mission Failed!')
-    } else if(this.isComplete) {
+    } else if(this.isComplete()) {
       this.setState({ status: Mission.STATUS.COMPLETE })
     }
   }
 
-  handleMineNotFound(gridId) {
-    let newGridIds = this.state.revealedGridIds.concat([gridId])
-    this.setState({ revealedGridIds: newGridIds })
-  }
+  handleRevealing(gridId) {
+    let targetGrid = this.state.data.filter(grid => grid.id === gridId).shift()
+    let mineFound = targetGrid.isMined
 
-  handleMineFound(gridId) {
-    let newGridIds = this.state.revealedGridIds.concat([gridId])
+    let nextData = this.state.data.map(grid => {
+      if(mineFound && grid.isMined || grid.id === targetGrid.id) grid.isRevealed = true
+      return grid
+    })
 
     this.setState({
-      status: Mission.STATUS.FAILED,
-      revealedGridIds: newGridIds
+      data: nextData,
+      status: mineFound ? Mission.STATUS.FAILED : Mission.STATUS.ONGOING
     })
+  }
+
+  isComplete() {
+    return (
+      this.state.data.every(grid => {
+        return grid.isRevealed && !grid.isMined || !grid.isRevealed && grid.isMined
+      })
+    )
+  }
+
+  // TODO JSON APIサーバーを実装してそこから読み込むようにする
+  loadDataFromServer() {
+    let data = Array
+      .apply(null, { length: this.state.nRow * this.state.nCol })
+      .map(Number.call, Number)
+      .map(i => {
+        return {
+          id: i,
+          isMined: [0,1,2,3,4].indexOf(i) >= 0,
+          isRevealed: false,
+          number: [5,6,7,8,9].indexOf(i) >= 0 ? 1 : 0
+        }
+      })
+
+    this.setState({ data: data })
   }
 
   render() {
     return (
       <div style={MissionStyle.base}>
         <Field
-          nRow={this.state.nRow}
-          nCol={this.state.nCol}
-          isImmutable={this.state.status !== Mission.STATUS.ONGOING}
-          minedGridIds={this.state.minedGridIds}
-          onMineFound={this.handleMineFound.bind(this)}
-          onMineNotFound={this.handleMineNotFound.bind(this)}
+          data={this.state.data}
+          shape={[this.state.nRow, this.state.nCol]}
+          isMutable={this.state.status === this.constructor.STATUS.ONGOING}
+          onRevealing={this.handleRevealing.bind(this)}
         />
       </div>
     );
