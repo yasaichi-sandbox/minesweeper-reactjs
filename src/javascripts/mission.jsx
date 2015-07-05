@@ -1,6 +1,7 @@
 import React from 'react';
 import Radium from 'radium'
 import Field from './field.jsx';
+import MissionData from './mission_data.js'
 import MissionStyle from '../stylesheets/mission.js'
 
 class Mission extends React.Component {
@@ -63,19 +64,13 @@ class Mission extends React.Component {
 
   // TODO JSON APIサーバーを実装してそこから読み込むようにする
   loadDataFromServer() {
-    let data = Array
-      .apply(null, { length: this.state.nRow * this.state.nCol })
-      .map(Number.call, Number)
-      .map(i => {
-        return {
-          id: i,
-          isMined: [0,1,2,3,4].indexOf(i) >= 0,
-          isRevealed: false,
-          number: [5,6,7,8,9].indexOf(i) >= 0 ? 1 : 0
-        }
-      })
+    let nextData = new MissionData({
+      nRow: this.state.nRow,
+      nCol: this.state.nCol,
+      nMine: this.state.nMine
+    }).build()
 
-    this.setState({ data: data })
+    this.setState({ data: nextData })
   }
 
   render() {
