@@ -14,9 +14,34 @@ class Grid extends React.Component {
   static get propTypes() {
     return {
       id: React.PropTypes.number.isRequired,
+      number: React.PropTypes.number.isRequired,
       status: React.PropTypes.number.isRequired,
+      isMined: React.PropTypes.bool.isRequired,
       onMarking: React.PropTypes.func.isRequired,
-      onRevealing: React.PropTypes.func.isRequired
+      onRevealing: React.PropTypes.func.isRequired,
+      onUnmarking: React.PropTypes.func.isRequired
+    }
+  }
+
+  get isMarked() {
+    return this.props.status === this.constructor.STATUS.MARKED
+  }
+
+  get isRevealed() {
+    return this.props.status === this.constructor.STATUS.REVEALED
+  }
+
+  get isUnmarked() {
+    return this.props.status === this.constructor.STATUS.UNMARKED
+  }
+
+  get statusText() {
+    if(this.isRevealed) {
+      return this.props.isMined ? '●～*' : this.props.number.toString()
+    } else if(this.isMarked) {
+      return '?'
+    } else {
+      return ''
     }
   }
 
@@ -25,10 +50,12 @@ class Grid extends React.Component {
   }
 
   handleMouseDown(e) {
-    if(e.button === 0 && this.props.status !== Grid.STATUS.REVEALED) {
+    if(e.button === 0 && this.isUnmarked) {
       this.props.onRevealing(this.props.id)
-    } else if(e.button === 2 && this.props.status === Grid.STATUS.UNMARKED) {
+    } else if(e.button === 2 && this.isUnmarked) {
       this.props.onMarking(this.props.id)
+    } else if(e.button === 2 && this.isMarked) {
+      this.props.onUnmarking(this.props.id)
     }
   }
 
@@ -38,7 +65,7 @@ class Grid extends React.Component {
         style={GridStyle.base}
         onContextMenu={this.handleContextMenu}
         onMouseDown={this.handleMouseDown.bind(this)}>
-        {this.props.children}
+        {this.statusText}
       </div>
     )
   }
