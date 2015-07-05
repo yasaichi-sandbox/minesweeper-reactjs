@@ -50,7 +50,7 @@ class Mission extends React.Component {
 
     this.setState({
       data: nextData,
-      status: mineFound ? Mission.STATUS.FAILED : Mission.STATUS.ONGOING
+      status: mineFound ? Mission.STATUS.FAILED : this.state.status
     })
   }
 
