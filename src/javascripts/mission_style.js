@@ -4,6 +4,6 @@ const MissionStyle = {
     padding: '10px',
     border: 'solid 1px black'
   }
-};
+}
 
-export default MissionStyle;
+export default MissionStyle

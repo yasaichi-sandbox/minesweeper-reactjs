@@ -1,6 +1,6 @@
 import React from 'react'
 import Radium from 'radium'
-import GridStyle from '../stylesheets/grid.js'
+import GridStyle from './grid_style.js'
 
 class Grid extends React.Component {
   static get STATUS() {

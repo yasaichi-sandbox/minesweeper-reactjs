@@ -1,8 +1,8 @@
-import React from 'react';
+import React from 'react'
 import Radium from 'radium'
-import Field from './field.jsx';
+import Field from './field.jsx'
 import MissionData from './mission_data.js'
-import MissionStyle from '../stylesheets/mission.js'
+import MissionStyle from './mission_style.js'
 
 class Mission extends React.Component {
   static get STATUS() {
@@ -26,7 +26,7 @@ class Mission extends React.Component {
   }
 
   componentDidMount() {
-    this.loadDataFromServer();
+    this.loadDataFromServer()
   }
 
   componentDidUpdate() {
@@ -83,8 +83,8 @@ class Mission extends React.Component {
           onRevealing={this.handleRevealing.bind(this)}
         />
       </div>
-    );
+    )
   }
 }
 
-export default Radium(Mission);
+export default Radium(Mission)
