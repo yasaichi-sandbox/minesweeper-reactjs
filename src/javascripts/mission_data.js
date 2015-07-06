@@ -1,8 +1,8 @@
 export default class MissionData {
-  constructor(props) {
-    this.nRow = props.nRow
-    this.nCol = props.nCol
-    this.nMine = props.nMine
+  constructor(params) {
+    this.nRow = params.nRow
+    this.nCol = params.nCol
+    this.nMine = params.nMine
     this.minedGridIds = []
   }
 
