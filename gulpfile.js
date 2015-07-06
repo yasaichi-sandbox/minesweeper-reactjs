@@ -11,6 +11,8 @@ var buffer = require('vinyl-buffer');
 var babelify = require('babelify');
 var assign = require('lodash.assign');
 var jade = require('gulp-jade');
+var stylus = require('gulp-stylus');
+var minifyCss = require('gulp-minify-css');
 var webserver = require('gulp-webserver');
 var ghPages = require('gulp-gh-pages');
 
@@ -70,12 +72,28 @@ gulp.task('jade', function() {
     .pipe(gulp.dest('./dist'))
 });
 
+// ###############
+// # gulp stylus #
+// ###############
+gulp.task('stylus', function() {
+  gulp.src('./src/stylesheets/main.styl')
+    .pipe(sourcemaps.init())
+    .pipe(stylus({
+      compress: true,
+      'include css': true
+    }))
+    .pipe(minifyCss())
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest('./dist/stylesheets'));
+});
+
 // ##############
 // # gulp watch #
 // ##############
 
-gulp.task('watch', ['watchify', 'jade'], function () {
+gulp.task('watch', ['watchify', 'jade', 'stylus'], function () {
   gulp.watch('./src/**/*.jade', ['jade']);
+  gulp.watch('./src/stylesheets/*.styl', ['stylus']);
 });
 
 // ##################

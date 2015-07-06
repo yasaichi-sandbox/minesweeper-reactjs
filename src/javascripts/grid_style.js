@@ -9,6 +9,6 @@ const GridStyle = {
     borderBottom: 'solid 1px black',
     textAlign: 'center'
   }
-};
+}
 
-export default GridStyle;
+export default GridStyle

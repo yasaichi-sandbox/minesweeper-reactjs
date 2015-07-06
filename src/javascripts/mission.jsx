@@ -1,8 +1,9 @@
-import React from 'react';
+import React from 'react'
 import Radium from 'radium'
-import Field from './field.jsx';
+import Console from './console.jsx'
+import Field from './field.jsx'
 import MissionData from './mission_data.js'
-import MissionStyle from '../stylesheets/mission.js'
+import MissionStyle from './mission_style.js'
 
 class Mission extends React.Component {
   static get STATUS() {
@@ -13,20 +14,24 @@ class Mission extends React.Component {
     }
   }
 
+  // TODO JSON APIサーバーを実装してそこから読み込むようにする
+  static getDataFromServer(params) {
+    return new MissionData(params).build()
+  }
+
   constructor(props) {
     super(props)
 
     this.state = {
-      nRow: 5,
-      nCol: 5,
-      nMine: 5,
       data: [],
+      params: { nRow: 5, nCol: 5, nMine: 5 },
       status: this.constructor.STATUS.ONGOING
     }
   }
 
   componentDidMount() {
-    this.loadDataFromServer();
+    let nextData = this.constructor.getDataFromServer(this.state.params)
+    this.setState({ data: nextData })
   }
 
   componentDidUpdate() {
@@ -54,6 +59,16 @@ class Mission extends React.Component {
     })
   }
 
+  handleParamsChange(nextParams) {
+    let nextData = this.constructor.getDataFromServer(nextParams)
+
+    this.setState({
+      data: nextData,
+      params: nextParams,
+      status: this.constructor.STATUS.ONGOING
+    })
+  }
+
   isComplete() {
     return (
       this.state.data.every(grid => {
@@ -62,29 +77,22 @@ class Mission extends React.Component {
     )
   }
 
-  // TODO JSON APIサーバーを実装してそこから読み込むようにする
-  loadDataFromServer() {
-    let nextData = new MissionData({
-      nRow: this.state.nRow,
-      nCol: this.state.nCol,
-      nMine: this.state.nMine
-    }).build()
-
-    this.setState({ data: nextData })
-  }
-
   render() {
     return (
       <div style={MissionStyle.base}>
+        <Console
+          onParamsChange={this.handleParamsChange.bind(this)}
+          params={this.state.params}
+        />
         <Field
           data={this.state.data}
-          shape={[this.state.nRow, this.state.nCol]}
+          shape={[this.state.params.nRow, this.state.params.nCol]}
           isMutable={this.state.status === this.constructor.STATUS.ONGOING}
           onRevealing={this.handleRevealing.bind(this)}
         />
       </div>
-    );
+    )
   }
 }
 
-export default Radium(Mission);
+export default Radium(Mission)

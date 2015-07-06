@@ -9,6 +9,6 @@ const FieldStyle = {
       height: `${46 * nRow}px`
     }
   }
-};
+}
 
-export default FieldStyle;
+export default FieldStyle
