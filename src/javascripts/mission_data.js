@@ -36,7 +36,6 @@ export default class MissionData {
         return {
           id: i,
           isMined: this.minedGridIds.indexOf(i) >= 0,
-          isRevealed: false,
           adjacentIds: adjacentGridIds,
           number: number
         }

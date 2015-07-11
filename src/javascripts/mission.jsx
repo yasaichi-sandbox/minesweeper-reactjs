@@ -16,7 +16,10 @@ class Mission extends React.Component {
 
   // TODO JSON APIサーバーを実装してそこから読み込むようにする
   static getDataFromServer(params) {
-    return new MissionData(params).build()
+    return new MissionData(params).build().map(grid => {
+      grid.isRevealed = false
+      return grid
+    })
   }
 
   constructor(props) {
