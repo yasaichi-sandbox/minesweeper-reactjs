@@ -38,12 +38,12 @@ class Mission extends React.Component {
   }
 
   componentDidUpdate() {
-    if(this.state.status === Mission.STATUS.COMPLETE) {
+    if(this.state.status === this.constructor.STATUS.COMPLETE) {
       alert('Mission Complete!')
-    } else if(this.state.status === Mission.STATUS.FAILED) {
+    } else if(this.state.status === this.constructor.STATUS.FAILED) {
       alert('Mission Failed!')
     } else if(this.isComplete()) {
-      this.setState({ status: Mission.STATUS.COMPLETE })
+      this.setState({ status: this.constructor.STATUS.COMPLETE })
     }
   }
 
