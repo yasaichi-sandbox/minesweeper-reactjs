@@ -6,7 +6,7 @@ export default class MissionData {
     this.minedGridIds = []
   }
 
-  getNeighborGridIdsOf(targetId) {
+  getAdjacentGridIdsOf(targetId) {
     let r = Math.floor(targetId / this.nCol)
     let c = targetId % this.nCol
 
@@ -28,8 +28,8 @@ export default class MissionData {
 
     return (
       this._range(0, nGrid).map(i => {
-        let neighborGridIds = this.getNeighborGridIdsOf(i)
-        let number = neighborGridIds
+        let adjacentGridIds = this.getAdjacentGridIdsOf(i)
+        let number = adjacentGridIds
           .filter(id => this.minedGridIds.indexOf(id) >= 0)
           .length
 
@@ -37,7 +37,7 @@ export default class MissionData {
           id: i,
           isMined: this.minedGridIds.indexOf(i) >= 0,
           isRevealed: false,
-          neighborIds: neighborGridIds,
+          adjacentIds: adjacentGridIds,
           number: number
         }
       })
