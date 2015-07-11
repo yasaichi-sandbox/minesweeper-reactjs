@@ -47,19 +47,19 @@ class Mission extends React.Component {
     }
   }
 
+  findGridById(gridId) {
+    return this.state.data.filter(grid => grid.id === gridId).shift()
+  }
+
   handleRevealing(gridId) {
-    let targetGrid = this.state.data.filter(grid => grid.id === gridId).shift()
-    let mineFound = targetGrid.isMined
+    let grid = this.findGridById(gridId)
 
-    let nextData = this.state.data.map(grid => {
-      if(mineFound && grid.isMined || grid.id === targetGrid.id) grid.isRevealed = true
-      return grid
-    })
-
-    this.setState({
-      data: nextData,
-      status: mineFound ? Mission.STATUS.FAILED : this.state.status
-    })
+    if(grid.isMined) {
+      this.revealAllMinedGrids()
+      this.setState({ status: this.constructor.STATUS.FAILED })
+    } else {
+      this.revealGridsRecursivelyFrom(grid)
+    }
   }
 
   handleParamsChange(nextParams) {
@@ -78,6 +78,54 @@ class Mission extends React.Component {
         return grid.isRevealed && !grid.isMined || !grid.isRevealed && grid.isMined
       })
     )
+  }
+
+  revealAllMinedGrids() {
+    let nextData = this.state.data.map(grid => {
+      if(grid.isMined) grid.isRevealed = true
+      return grid
+    })
+
+    this.setState({ data: nextData })
+  }
+
+  revealGridsRecursivelyFrom(sourceGrid) {
+    let targetGridIds = this.searchSafeGridIdsRecursivelyFrom(sourceGrid)
+
+    let nextData = this.state.data.map(grid => {
+      if(targetGridIds.has(grid.id)) grid.isRevealed = true
+      return grid
+    })
+
+    this.setState({ data: nextData })
+  }
+
+  // TODO 見通し悪すぎなのでリファクタリングする
+  searchSafeGridIdsRecursivelyFrom(sourceGrid, context = {}) {
+    if(sourceGrid.isMined) return new Set()
+
+    if(context.safeGridIds && context.searchedGridIds) {
+      context.safeGridIds.add(sourceGrid.id)
+      context.searchedGridIds.add(sourceGrid.id)
+    } else {
+      context.safeGridIds = new Set([sourceGrid.id])
+      context.searchedGridIds = new Set([sourceGrid.id])
+    }
+
+    if(sourceGrid.number === 0) {
+      sourceGrid.adjacentIds.forEach(gridId => {
+        if(context.searchedGridIds.has(gridId)) return
+        let grid = this.findGridById(gridId)
+
+        if(grid.isMined) {
+          context.searchedGridIds.add(grid.id)
+        } else {
+          this.searchSafeGridIdsRecursivelyFrom(grid, context)
+        }
+      })
+    }
+
+    return context.safeGridIds
   }
 
   render() {
