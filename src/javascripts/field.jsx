@@ -19,6 +19,12 @@ class Field extends React.Component {
     this.state = { markedGridIds: new Set() }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.data.every(grid => !grid.isRevealed)) {
+      this.setState({ markedGridIds: new Set() })
+    }
+  }
+
   // TODO このメソッドはここに書くべきではない気がする
   getStatusOf(grid) {
     if(this.state.markedGridIds.has(grid.id)) {
