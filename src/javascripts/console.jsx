@@ -50,7 +50,7 @@ class Console extends React.Component {
     // 今回のユースケースでは必要ないが、一応厳しくチェック
     let nMineIsValid =
       this.props.nMines.indexOf(nextParams.nMine) >= 0 &&
-      nextParams.nMine <= nextParams.nRow * nextParams.nCol
+      nextParams.nMine < nextParams.nRow * nextParams.nCol
 
     if(nRowIsValid && nColIsValid && nMineIsValid) {
       this.props.onParamsChange(nextParams)

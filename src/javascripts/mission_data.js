@@ -24,8 +24,6 @@ export default class MissionData {
       .sort(() => Math.random() - 0.5)
       .slice(0, this.nMine)
 
-    console.log(this.minedGridIds)
-
     return (
       this._range(0, nGrid).map(i => {
         let adjacentGridIds = this.getAdjacentGridIdsOf(i)

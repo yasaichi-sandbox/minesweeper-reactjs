@@ -101,31 +101,31 @@ class Mission extends React.Component {
   }
 
   // TODO 見通し悪すぎなのでリファクタリングする
-  searchSafeGridIdsRecursivelyFrom(sourceGrid, context = {}) {
+  searchSafeGridIdsRecursivelyFrom(sourceGrid, accumulator = {}) {
     if(sourceGrid.isMined) return new Set()
 
-    if(context.safeGridIds && context.searchedGridIds) {
-      context.safeGridIds.add(sourceGrid.id)
-      context.searchedGridIds.add(sourceGrid.id)
+    if(accumulator.safeGridIds && accumulator.searchedGridIds) {
+      accumulator.safeGridIds.add(sourceGrid.id)
+      accumulator.searchedGridIds.add(sourceGrid.id)
     } else {
-      context.safeGridIds = new Set([sourceGrid.id])
-      context.searchedGridIds = new Set([sourceGrid.id])
+      accumulator.safeGridIds = new Set([sourceGrid.id])
+      accumulator.searchedGridIds = new Set([sourceGrid.id])
     }
 
     if(sourceGrid.number === 0) {
       sourceGrid.adjacentIds.forEach(gridId => {
-        if(context.searchedGridIds.has(gridId)) return
+        if(accumulator.searchedGridIds.has(gridId)) return
         let grid = this.findGridById(gridId)
 
         if(grid.isMined) {
-          context.searchedGridIds.add(grid.id)
+          accumulator.searchedGridIds.add(grid.id)
         } else {
-          this.searchSafeGridIdsRecursivelyFrom(grid, context)
+          this.searchSafeGridIdsRecursivelyFrom(grid, accumulator)
         }
       })
     }
 
-    return context.safeGridIds
+    return accumulator.safeGridIds
   }
 
   render() {
