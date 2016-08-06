@@ -1,6 +1,7 @@
-import React from 'react'
-import Radium from 'radium'
-import ConsoleStyle from './console_style.js'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Radium from 'radium';
+import ConsoleStyle from './ConsoleStyle';
 
 class Console extends React.Component {
   static get propTypes() {
@@ -12,48 +13,48 @@ class Console extends React.Component {
       params: React.PropTypes.shape({
         nRow: React.PropTypes.number.isRequired,
         nCol: React.PropTypes.number.isRequired,
-        nMine: React.PropTypes.number.isRequired
-      })
-    }
+        nMine: React.PropTypes.number.isRequired,
+      }),
+    };
   }
 
   static get defaultProps() {
     return {
       nRows: [5, 6, 7, 8, 9, 10],
       nCols: [5, 6, 7, 8, 9, 10],
-      nMines: [5, 10, 15, 20, 25]
-    }
+      nMines: [5, 10, 15, 20, 25],
+    };
   }
 
   buildSelectBoxOf(paramName) {
-    let optionValues = this.props[`${paramName}s`]
+    const optionValues = this.props[`${paramName}s`];
 
     return (
       <select defaultValue={this.props.params[paramName]} ref={paramName}>
         {optionValues.map(v => <option key={v} value={v}>{v}</option>)}
       </select>
-    )
+    );
   }
 
   handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
 
-    let nextParams = {
-      nRow: Number(this.refs.nRow.getDOMNode().value),
-      nCol: Number(this.refs.nCol.getDOMNode().value),
-      nMine: Number(this.refs.nMine.getDOMNode().value)
-    }
+    const nextParams = {
+      nRow: Number(ReactDOM.findDOMNode(this.refs.nRow).value),
+      nCol: Number(ReactDOM.findDOMNode(this.refs.nCol).value),
+      nMine: Number(ReactDOM.findDOMNode(this.refs.nMine).value),
+    };
 
-    let nRowIsValid = this.props.nRows.indexOf(nextParams.nRow) >= 0
-    let nColIsValid = this.props.nCols.indexOf(nextParams.nCol) >= 0
+    const nRowIsValid = this.props.nRows.indexOf(nextParams.nRow) >= 0;
+    const nColIsValid = this.props.nCols.indexOf(nextParams.nCol) >= 0;
 
     // 今回のユースケースでは必要ないが、一応厳しくチェック
-    let nMineIsValid =
+    const nMineIsValid =
       this.props.nMines.indexOf(nextParams.nMine) >= 0 &&
-      nextParams.nMine < nextParams.nRow * nextParams.nCol
+      nextParams.nMine < nextParams.nRow * nextParams.nCol;
 
-    if(nRowIsValid && nColIsValid && nMineIsValid) {
-      this.props.onParamsChange(nextParams)
+    if (nRowIsValid && nColIsValid && nMineIsValid) {
+      this.props.onParamsChange(nextParams);
     }
   }
 
@@ -61,7 +62,8 @@ class Console extends React.Component {
     return (
       <form
         style={ConsoleStyle.base}
-        onSubmit={this.handleSubmit.bind(this)}>
+        onSubmit={this.handleSubmit.bind(this)}
+      >
         <ul style={ConsoleStyle.ul}>
           <li style={[ConsoleStyle.li.base, ConsoleStyle.li.notLastChild]}>
             {this.buildSelectBoxOf('nRow')}
@@ -74,10 +76,10 @@ class Console extends React.Component {
             {this.buildSelectBoxOf('nMine')}
           </li>
         </ul>
-        <input type='submit' value='Start!' />
+        <input type="submit" value="Start!" />
       </form>
-    )
+    );
   }
 }
 
-export default Radium(Console)
+export default Radium(Console);

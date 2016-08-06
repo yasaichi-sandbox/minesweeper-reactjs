@@ -7,8 +7,8 @@ const GridStyle = {
     lineHeight: '46px',
     borderRight: 'solid 1px black',
     borderBottom: 'solid 1px black',
-    textAlign: 'center'
-  }
-}
+    textAlign: 'center',
+  },
+};
 
-export default GridStyle
+export default GridStyle;
