@@ -5,7 +5,7 @@
 This app is a minesweeper clone implemented with React.js.
 
 ## Requirements
-* node(`v0.12.2` or later)
+* node(`v4.0.0` or later)
 * npm
 
 ## How to play
@@ -17,5 +17,11 @@ Let's access [GitHub Pages](http://yasaichi.github.io/minesweeper-reactjs)!
 git clone git@github.com:yasaichi/minesweeper-reactjs.git
 cd minesweeper-reactjs
 npm install
-gulp
+npm run boot
+```
+
+Then, open the following URL in your browser:
+
+```
+http://localhost:8080
 ```
