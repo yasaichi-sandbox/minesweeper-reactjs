@@ -1,7 +1,8 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import Mission from './mission.jsx'
 
-React.render(
+ReactDOM.render(
   <Mission />,
   document.getElementById('container')
 )

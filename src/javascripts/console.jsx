@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import Radium from 'radium'
 import ConsoleStyle from './console_style.js'
 
@@ -39,9 +40,9 @@ class Console extends React.Component {
     e.preventDefault()
 
     let nextParams = {
-      nRow: Number(this.refs.nRow.getDOMNode().value),
-      nCol: Number(this.refs.nCol.getDOMNode().value),
-      nMine: Number(this.refs.nMine.getDOMNode().value)
+      nRow: Number(ReactDOM.findDOMNode(this.refs.nRow).value),
+      nCol: Number(ReactDOM.findDOMNode(this.refs.nCol).value),
+      nMine: Number(ReactDOM.findDOMNode(this.refs.nMine).value)
     }
 
     let nRowIsValid = this.props.nRows.indexOf(nextParams.nRow) >= 0
