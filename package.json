@@ -7,17 +7,17 @@
     "build": "npm-run-all --parallel build:*",
     "build:css": "stylus src/stylesheets/main.styl -c -o dist/stylesheets",
     "build:html": "pug src --out dist",
-    "build:js": "browserify src/javascripts/main.js -d -o dist/javascripts/app.js -p [minifyify --no-map] -t babelify",
+    "build:js": "browserify src/javascripts/main.jsx -d --extension=.jsx -o dist/javascripts/app.js -p [minifyify --no-map] -t babelify",
     "clean": "rimraf dist && mkdir -p dist/javascripts dist/stylesheets",
     "deploy": "NODE_ENV=production npm-run-all clean build && gh-pages -d dist",
-    "lint": "eslint src/javascripts",
+    "lint": "eslint src/javascripts --ext .js,.jsx",
     "server": "live-server dist --host localhost --no-browser --mount=/src:src --mount=/node_modules:node_modules",
     "update:apply": "npm run update:check -- --upgradeAll",
     "update:check": "npm-check-updates",
     "watch": "npm-run-all --parallel watch:*",
     "watch:css": "npm run build:css -- -m -w",
     "watch:html": "npm run build:html -- -w",
-    "watch:js": "watchify src/javascripts/main.js -d -o dist/javascripts/app.js -p [minifyify --map app.js.map --output dist/javascripts/app.js.map] -t babelify"
+    "watch:js": "watchify src/javascripts/main.jsx -d --extension=.jsx -o dist/javascripts/app.js -p [minifyify --map app.js.map --output dist/javascripts/app.js.map] -t babelify"
   },
   "repository": {
     "type": "git",
