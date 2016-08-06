@@ -1,3 +1,4 @@
+import bindAll from 'lodash.bindall';
 import React from 'react';
 import Radium from 'radium';
 import Grid from './Grid';
@@ -16,7 +17,11 @@ class Field extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { markedGridIds: new Set() };
+    bindAll(this, ['handleMarking', 'handleUnmarking']);
+
+    this.state = {
+      markedGridIds: new Set(),
+    };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -50,9 +55,9 @@ class Field extends React.Component {
 
   render() {
     const isMutable = this.props.isMutable;
-    let onMarking = isMutable ? this.handleMarking.bind(this) : () => {};
-    let onRevealing = isMutable ? this.props.onRevealing.bind(this) : () => {};
-    let onUnmarking = isMutable ? this.handleUnmarking.bind(this) : () => {};
+    let onMarking = isMutable ? this.handleMarking : () => {};
+    let onRevealing = isMutable ? this.props.onRevealing : () => {};
+    let onUnmarking = isMutable ? this.handleUnmarking : () => {};
 
     let grids = this.props.data.map(grid => {
       return (

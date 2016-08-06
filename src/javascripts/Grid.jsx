@@ -1,3 +1,4 @@
+import bindAll from 'lodash.bindall';
 import React from 'react';
 import Radium from 'radium';
 import GridStyle from './GridStyle';
@@ -21,6 +22,11 @@ class Grid extends React.Component {
       onRevealing: React.PropTypes.func.isRequired,
       onUnmarking: React.PropTypes.func.isRequired,
     };
+  }
+
+  constructor(props) {
+    super(props);
+    bindAll(this, ['handleMouseDown']);
   }
 
   get isMarked() {
@@ -64,7 +70,7 @@ class Grid extends React.Component {
       <div
         style={GridStyle.base}
         onContextMenu={this.handleContextMenu}
-        onMouseDown={this.handleMouseDown.bind(this)}
+        onMouseDown={this.handleMouseDown}
       >
         {this.statusText}
       </div>

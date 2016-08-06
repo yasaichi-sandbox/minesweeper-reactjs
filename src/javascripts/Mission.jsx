@@ -1,3 +1,4 @@
+import bindAll from 'lodash.bindall';
 import React from 'react';
 import Radium from 'radium';
 import Console from './Console';
@@ -24,6 +25,7 @@ class Mission extends React.Component {
 
   constructor(props) {
     super(props);
+    bindAll(this, ['handleParamsChange', 'handleRevealing']);
 
     this.state = {
       data: [],
@@ -132,14 +134,14 @@ class Mission extends React.Component {
     return (
       <div style={MissionStyle.base}>
         <Console
-          onParamsChange={this.handleParamsChange.bind(this)}
+          onParamsChange={this.handleParamsChange}
           params={this.state.params}
         />
         <Field
           data={this.state.data}
           shape={[this.state.params.nRow, this.state.params.nCol]}
           isMutable={this.state.status === this.constructor.STATUS.ONGOING}
-          onRevealing={this.handleRevealing.bind(this)}
+          onRevealing={this.handleRevealing}
         />
       </div>
     );

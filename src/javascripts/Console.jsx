@@ -1,3 +1,4 @@
+import bindAll from 'lodash.bindall';
 import React from 'react';
 import Radium from 'radium';
 import ConsoleStyle from './ConsoleStyle';
@@ -23,6 +24,11 @@ class Console extends React.Component {
       nCols: [5, 6, 7, 8, 9, 10],
       nMines: [5, 10, 15, 20, 25],
     };
+  }
+
+  constructor(props) {
+    super(props);
+    bindAll(this, ['handleSubmit']);
   }
 
   buildSelectBoxOf(paramName) {
@@ -61,7 +67,7 @@ class Console extends React.Component {
     return (
       <form
         style={ConsoleStyle.base}
-        onSubmit={this.handleSubmit.bind(this)}
+        onSubmit={this.handleSubmit}
       >
         <ul style={ConsoleStyle.ul}>
           <li style={[ConsoleStyle.li.base, ConsoleStyle.li.notLastChild]}>
