@@ -10,12 +10,12 @@ const ConsoleStyle = {
   },
   li: {
     base: {
-      display: 'inline-block'
+      display: 'inline-block',
     },
     notLastChild: {
-      marginRight: '10px'
-    }
-  }
-}
+      marginRight: '10px',
+    },
+  },
+};
 
-export default ConsoleStyle
+export default ConsoleStyle;
