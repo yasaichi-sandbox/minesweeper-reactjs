@@ -1,14 +1,14 @@
-import React from 'react'
-import Radium from 'radium'
-import GridStyle from './GridStyle'
+import React from 'react';
+import Radium from 'radium';
+import GridStyle from './GridStyle';
 
 class Grid extends React.Component {
   static get STATUS() {
     return {
       UNMARKED: 0,
       MARKED: 1,
-      REVEALED: 2
-    }
+      REVEALED: 2,
+    };
   }
 
   static get propTypes() {
@@ -19,43 +19,43 @@ class Grid extends React.Component {
       isMined: React.PropTypes.bool.isRequired,
       onMarking: React.PropTypes.func.isRequired,
       onRevealing: React.PropTypes.func.isRequired,
-      onUnmarking: React.PropTypes.func.isRequired
-    }
+      onUnmarking: React.PropTypes.func.isRequired,
+    };
   }
 
   get isMarked() {
-    return this.props.status === this.constructor.STATUS.MARKED
+    return this.props.status === this.constructor.STATUS.MARKED;
   }
 
   get isRevealed() {
-    return this.props.status === this.constructor.STATUS.REVEALED
+    return this.props.status === this.constructor.STATUS.REVEALED;
   }
 
   get isUnmarked() {
-    return this.props.status === this.constructor.STATUS.UNMARKED
+    return this.props.status === this.constructor.STATUS.UNMARKED;
   }
 
   get statusText() {
-    if(this.isRevealed) {
-      return this.props.isMined ? '●～*' : this.props.number.toString()
-    } else if(this.isMarked) {
-      return '?'
+    if (this.isRevealed) {
+      return this.props.isMined ? '●～*' : this.props.number.toString();
+    } else if (this.isMarked) {
+      return '?';
     } else {
-      return ''
+      return '';
     }
   }
 
   handleContextMenu(e) {
-    e.preventDefault()
+    e.preventDefault();
   }
 
   handleMouseDown(e) {
-    if(e.button === 0 && this.isUnmarked) {
-      this.props.onRevealing(this.props.id)
-    } else if(e.button === 2 && this.isUnmarked) {
-      this.props.onMarking(this.props.id)
-    } else if(e.button === 2 && this.isMarked) {
-      this.props.onUnmarking(this.props.id)
+    if (e.button === 0 && this.isUnmarked) {
+      this.props.onRevealing(this.props.id);
+    } else if (e.button === 2 && this.isUnmarked) {
+      this.props.onMarking(this.props.id);
+    } else if (e.button === 2 && this.isMarked) {
+      this.props.onUnmarking(this.props.id);
     }
   }
 
@@ -64,11 +64,12 @@ class Grid extends React.Component {
       <div
         style={GridStyle.base}
         onContextMenu={this.handleContextMenu}
-        onMouseDown={this.handleMouseDown.bind(this)}>
+        onMouseDown={this.handleMouseDown.bind(this)}
+      >
         {this.statusText}
       </div>
-    )
+    );
   }
 }
 
-export default Radium(Grid)
+export default Radium(Grid);
