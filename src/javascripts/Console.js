@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Radium from 'radium'
-import ConsoleStyle from './console_style.js'
+import ConsoleStyle from './ConsoleStyle'
 
 class Console extends React.Component {
   static get propTypes() {

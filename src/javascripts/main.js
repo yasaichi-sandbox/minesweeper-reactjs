@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Mission from './mission.jsx'
+import Mission from './Mission'
 
 ReactDOM.render(
   <Mission />,

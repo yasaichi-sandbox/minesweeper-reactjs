@@ -1,9 +1,9 @@
 import React from 'react'
 import Radium from 'radium'
-import Console from './console.jsx'
-import Field from './field.jsx'
-import MissionData from './mission_data.js'
-import MissionStyle from './mission_style.js'
+import Console from './Console'
+import Field from './Field'
+import MissionData from './MissionData'
+import MissionStyle from './MissionStyle'
 
 class Mission extends React.Component {
   static get STATUS() {

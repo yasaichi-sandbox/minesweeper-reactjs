@@ -1,7 +1,7 @@
 import React from 'react'
 import Radium from 'radium'
-import Grid from './grid.jsx'
-import FieldStyle from './field_style.js'
+import Grid from './Grid'
+import FieldStyle from './FieldStyle'
 
 class Field extends React.Component {
   // TODO static propertiesを使いたい
