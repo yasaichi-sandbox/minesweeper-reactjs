@@ -29,13 +29,19 @@ class Console extends React.Component {
   constructor(props) {
     super(props);
     bindAll(this, ['handleSubmit']);
+
+    // TODO: 結局this.refsの時と何ら変わっていないのでなんとかしたい
+    this.childComponents = {};
   }
 
   buildSelectBoxOf(paramName) {
     const optionValues = this.props[`${paramName}s`];
 
     return (
-      <select defaultValue={this.props.params[paramName]} ref={paramName}>
+      <select
+        defaultValue={this.props.params[paramName]}
+        ref={(component) => (this.childComponents[paramName] = component)}
+      >
         {optionValues.map(v => <option key={v} value={v}>{v}</option>)}
       </select>
     );
@@ -45,9 +51,9 @@ class Console extends React.Component {
     e.preventDefault();
 
     const nextParams = {
-      nRow: Number(this.refs.nRow.value),
-      nCol: Number(this.refs.nCol.value),
-      nMine: Number(this.refs.nMine.value),
+      nRow: Number(this.childComponents.nRow.value),
+      nCol: Number(this.childComponents.nCol.value),
+      nMine: Number(this.childComponents.nMine.value),
     };
 
     const nRowIsValid = this.props.nRows.includes(nextParams.nRow);
