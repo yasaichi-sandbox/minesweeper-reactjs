@@ -4,5 +4,10 @@
   },
   "extends": [
     "airbnb"
-  ]
+  ],
+  "rules": {
+    "comma-dangle": ["error", "never"],
+    "no-underscore-dangle": ["error", { "allowAfterThis": true }],
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
+  }
 }
