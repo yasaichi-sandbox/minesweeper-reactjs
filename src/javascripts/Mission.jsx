@@ -42,7 +42,7 @@ class Mission extends React.Component {
   }
 
   findGridById(gridId) {
-    return this.state.data.filter(grid => grid.id === gridId).shift();
+    return this.state.data.filter((grid) => grid.id === gridId).shift();
   }
 
   // TODO JSON APIサーバーを実装してそこから読み込むようにする
@@ -66,7 +66,7 @@ class Mission extends React.Component {
   }
 
   isComplete() {
-    return this.state.data.every(grid =>
+    return this.state.data.every((grid) =>
       (grid.isRevealed && !grid.isMined) || (!grid.isRevealed && grid.isMined)
     );
   }
@@ -104,7 +104,7 @@ class Mission extends React.Component {
     }
 
     if (sourceGrid.number === 0) {
-      sourceGrid.adjacentIds.forEach(gridId => {
+      sourceGrid.adjacentIds.forEach((gridId) => {
         if (accumulator.searchedGridIds.has(gridId)) return;
         const grid = this.findGridById(gridId);
 

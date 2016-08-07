@@ -25,7 +25,7 @@ class Field extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.data.every(grid => !grid.isRevealed)) {
+    if (nextProps.data.every((grid) => !grid.isRevealed)) {
       this.setState({ markedGridIds: new Set() });
     }
   }
@@ -59,7 +59,7 @@ class Field extends React.Component {
     const onRevealing = isMutable ? this.props.onRevealing : () => {};
     const onUnmarking = isMutable ? this.handleUnmarking : () => {};
 
-    const grids = this.props.data.map(grid =>
+    const grids = this.props.data.map((grid) =>
       <Grid
         key={grid.id}
         id={grid.id}

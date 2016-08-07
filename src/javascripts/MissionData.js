@@ -29,10 +29,10 @@ export default class MissionData {
       .slice(0, this.nMine);
 
     return (
-      range(nGrid).map(i => {
+      range(nGrid).map((i) => {
         const adjacentGridIds = this.getAdjacentGridIdsOf(i);
         const number = adjacentGridIds
-          .filter(id => this.minedGridIds.includes(id))
+          .filter((id) => this.minedGridIds.includes(id))
           .length;
 
         return {

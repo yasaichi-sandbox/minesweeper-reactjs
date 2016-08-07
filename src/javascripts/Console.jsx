@@ -42,7 +42,7 @@ class Console extends React.Component {
         defaultValue={this.props.params[paramName]}
         ref={(component) => (this.childComponents[paramName] = component)}
       >
-        {optionValues.map(v => <option key={v} value={v}>{v}</option>)}
+        {optionValues.map((v) => <option key={v} value={v}>{v}</option>)}
       </select>
     );
   }
