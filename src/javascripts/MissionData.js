@@ -13,7 +13,7 @@ export default class MissionData {
     return [-1, 0, 1]
       .reduce((a, e) => a.concat([[r + e, c - 1], [r + e, c], [r + e, c + 1]]), [])
       .filter(c => 0 <= c[0] && c[0] < this.nRow && 0 <= c[1] && c[1] < this.nCol)
-      .map(c => this.nCol * c[0] + c[1])
+      .map(c => (this.nCol * c[0]) + c[1])
       .filter(id => id !== targetId);
   }
 
