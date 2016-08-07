@@ -15,14 +15,6 @@ class Mission extends React.Component {
     };
   }
 
-  // TODO JSON APIサーバーを実装してそこから読み込むようにする
-  static getDataFromServer(params) {
-    return new MissionData(params).build().map(grid => {
-      grid.isRevealed = false;
-      return grid;
-    });
-  }
-
   constructor(props) {
     super(props);
     bindAll(this, ['handleParamsChange', 'handleRevealing']);
@@ -35,8 +27,7 @@ class Mission extends React.Component {
   }
 
   componentDidMount() {
-    const nextData = this.constructor.getDataFromServer(this.state.params);
-    this.setState({ data: nextData });
+    this.handleParamsChange(this.state.params);
   }
 
   componentDidUpdate() {
@@ -53,6 +44,16 @@ class Mission extends React.Component {
     return this.state.data.filter(grid => grid.id === gridId).shift();
   }
 
+  // TODO JSON APIサーバーを実装してそこから読み込むようにする
+  handleParamsChange(params) {
+    const data = new MissionData(params).build().map((grid) => {
+      grid.isRevealed = false;
+      return grid;
+    });
+
+    this.setState({ data, params, status: this.constructor.STATUS.ONGOING });
+  }
+
   handleRevealing(gridId) {
     const grid = this.findGridById(gridId);
 
@@ -62,16 +63,6 @@ class Mission extends React.Component {
     } else {
       this.revealGridsRecursivelyFrom(grid);
     }
-  }
-
-  handleParamsChange(nextParams) {
-    const nextData = this.constructor.getDataFromServer(nextParams);
-
-    this.setState({
-      data: nextData,
-      params: nextParams,
-      status: this.constructor.STATUS.ONGOING,
-    });
   }
 
   isComplete() {
