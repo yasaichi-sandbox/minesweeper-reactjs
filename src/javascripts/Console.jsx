@@ -50,12 +50,12 @@ class Console extends React.Component {
       nMine: Number(this.refs.nMine.value),
     };
 
-    const nRowIsValid = this.props.nRows.indexOf(nextParams.nRow) >= 0;
-    const nColIsValid = this.props.nCols.indexOf(nextParams.nCol) >= 0;
+    const nRowIsValid = this.props.nRows.includes(nextParams.nRow);
+    const nColIsValid = this.props.nCols.includes(nextParams.nCol);
 
     // 今回のユースケースでは必要ないが、一応厳しくチェック
     const nMineIsValid =
-      this.props.nMines.indexOf(nextParams.nMine) >= 0 &&
+      this.props.nMines.includes(nextParams.nMine) &&
       nextParams.nMine < nextParams.nRow * nextParams.nCol;
 
     if (nRowIsValid && nColIsValid && nMineIsValid) {
