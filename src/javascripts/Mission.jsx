@@ -1,6 +1,7 @@
 import bindAll from 'lodash.bindall';
 import React from 'react';
 import Radium from 'radium';
+import update from 'react-addons-update';
 import Console from './Console';
 import Field from './Field';
 import MissionData from './MissionData';
@@ -46,10 +47,9 @@ class Mission extends React.Component {
 
   // TODO JSON APIサーバーを実装してそこから読み込むようにする
   handleParamsChange(params) {
-    const data = new MissionData(params).build().map((grid) => {
-      grid.isRevealed = false;
-      return grid;
-    });
+    const data = new MissionData(params).build().map((grid) =>
+      update(grid, { $merge: { isRevealed: false } })
+    );
 
     this.setState({ data, params, status: this.constructor.STATUS.ONGOING });
   }
@@ -72,9 +72,9 @@ class Mission extends React.Component {
   }
 
   revealAllMinedGrids() {
-    const nextData = this.state.data.map(grid => {
-      if (grid.isMined) grid.isRevealed = true;
-      return grid;
+    const nextData = this.state.data.map((grid) => {
+      const isRevealed = grid.isMined ? true : grid.isRevealed;
+      return update(grid, { $merge: { isRevealed } });
     });
 
     this.setState({ data: nextData });
@@ -83,9 +83,9 @@ class Mission extends React.Component {
   revealGridsRecursivelyFrom(sourceGrid) {
     const targetGridIds = this.searchSafeGridIdsRecursivelyFrom(sourceGrid);
 
-    const nextData = this.state.data.map(grid => {
-      if (targetGridIds.has(grid.id)) grid.isRevealed = true;
-      return grid;
+    const nextData = this.state.data.map((grid) => {
+      const isRevealed = targetGridIds.has(grid.id) ? true : grid.isRevealed;
+      return update(grid, { $merge: { isRevealed } });
     });
 
     this.setState({ data: nextData });
