@@ -55,9 +55,9 @@ class Field extends React.Component {
 
   render() {
     const isMutable = this.props.isMutable;
-    let onMarking = isMutable ? this.handleMarking : () => {};
-    let onRevealing = isMutable ? this.props.onRevealing : () => {};
-    let onUnmarking = isMutable ? this.handleUnmarking : () => {};
+    const onMarking = isMutable ? this.handleMarking : () => {};
+    const onRevealing = isMutable ? this.props.onRevealing : () => {};
+    const onUnmarking = isMutable ? this.handleUnmarking : () => {};
 
     const grids = this.props.data.map(grid =>
       <Grid
