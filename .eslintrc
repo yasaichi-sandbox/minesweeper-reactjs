@@ -6,6 +6,7 @@
     "airbnb"
   ],
   "rules": {
+    "arrow-parens": ["error", "always"],
     "comma-dangle": ["error", "never"],
     "no-underscore-dangle": ["error", { "allowAfterThis": true }],
     "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
