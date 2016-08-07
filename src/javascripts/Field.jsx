@@ -1,3 +1,4 @@
+import bindAll from 'lodash.bindall';
 import React from 'react';
 import Radium from 'radium';
 import Grid from './Grid';
@@ -10,17 +11,21 @@ class Field extends React.Component {
       data: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
       shape: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
       isMutable: React.PropTypes.bool.isRequired,
-      onRevealing: React.PropTypes.func.isRequired,
+      onRevealing: React.PropTypes.func.isRequired
     };
   }
 
   constructor(props) {
     super(props);
-    this.state = { markedGridIds: new Set() };
+    bindAll(this, ['handleMarking', 'handleUnmarking']);
+
+    this.state = {
+      markedGridIds: new Set()
+    };
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.data.every(grid => !grid.isRevealed)) {
+    if (nextProps.data.every((grid) => !grid.isRevealed)) {
       this.setState({ markedGridIds: new Set() });
     }
   }
@@ -31,9 +36,9 @@ class Field extends React.Component {
       return Grid.STATUS.MARKED;
     } else if (grid.isRevealed) {
       return Grid.STATUS.REVEALED;
-    } else {
-      return Grid.STATUS.UNMARKED;
     }
+
+    return Grid.STATUS.UNMARKED;
   }
 
   handleMarking(gridId) {
@@ -50,24 +55,22 @@ class Field extends React.Component {
 
   render() {
     const isMutable = this.props.isMutable;
-    let onMarking = isMutable ? this.handleMarking.bind(this) : () => {};
-    let onRevealing = isMutable ? this.props.onRevealing.bind(this) : () => {};
-    let onUnmarking = isMutable ? this.handleUnmarking.bind(this) : () => {};
+    const onMarking = isMutable ? this.handleMarking : () => {};
+    const onRevealing = isMutable ? this.props.onRevealing : () => {};
+    const onUnmarking = isMutable ? this.handleUnmarking : () => {};
 
-    let grids = this.props.data.map(grid => {
-      return (
-        <Grid
-          key={grid.id}
-          id={grid.id}
-          number={grid.number}
-          status={this.getStatusOf(grid)}
-          isMined={grid.isMined}
-          onMarking={onMarking}
-          onRevealing={onRevealing}
-          onUnmarking={onUnmarking}
-        />
-      );
-    });
+    const grids = this.props.data.map((grid) =>
+      <Grid
+        key={grid.id}
+        id={grid.id}
+        number={grid.number}
+        status={this.getStatusOf(grid)}
+        isMined={grid.isMined}
+        onMarking={onMarking}
+        onRevealing={onRevealing}
+        onUnmarking={onUnmarking}
+      />
+    );
 
     return (
       <div style={[FieldStyle.base, FieldStyle.shape(...this.props.shape)]}>

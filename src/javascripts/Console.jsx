@@ -1,5 +1,5 @@
+import bindAll from 'lodash.bindall';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Radium from 'radium';
 import ConsoleStyle from './ConsoleStyle';
 
@@ -13,8 +13,8 @@ class Console extends React.Component {
       params: React.PropTypes.shape({
         nRow: React.PropTypes.number.isRequired,
         nCol: React.PropTypes.number.isRequired,
-        nMine: React.PropTypes.number.isRequired,
-      }),
+        nMine: React.PropTypes.number.isRequired
+      })
     };
   }
 
@@ -22,16 +22,27 @@ class Console extends React.Component {
     return {
       nRows: [5, 6, 7, 8, 9, 10],
       nCols: [5, 6, 7, 8, 9, 10],
-      nMines: [5, 10, 15, 20, 25],
+      nMines: [5, 10, 15, 20, 25]
     };
+  }
+
+  constructor(props) {
+    super(props);
+    bindAll(this, ['handleSubmit']);
+
+    // TODO: 結局this.refsの時と何ら変わっていないのでなんとかしたい
+    this.childComponents = {};
   }
 
   buildSelectBoxOf(paramName) {
     const optionValues = this.props[`${paramName}s`];
 
     return (
-      <select defaultValue={this.props.params[paramName]} ref={paramName}>
-        {optionValues.map(v => <option key={v} value={v}>{v}</option>)}
+      <select
+        defaultValue={this.props.params[paramName]}
+        ref={(component) => (this.childComponents[paramName] = component)}
+      >
+        {optionValues.map((v) => <option key={v} value={v}>{v}</option>)}
       </select>
     );
   }
@@ -40,17 +51,17 @@ class Console extends React.Component {
     e.preventDefault();
 
     const nextParams = {
-      nRow: Number(ReactDOM.findDOMNode(this.refs.nRow).value),
-      nCol: Number(ReactDOM.findDOMNode(this.refs.nCol).value),
-      nMine: Number(ReactDOM.findDOMNode(this.refs.nMine).value),
+      nRow: Number(this.childComponents.nRow.value),
+      nCol: Number(this.childComponents.nCol.value),
+      nMine: Number(this.childComponents.nMine.value)
     };
 
-    const nRowIsValid = this.props.nRows.indexOf(nextParams.nRow) >= 0;
-    const nColIsValid = this.props.nCols.indexOf(nextParams.nCol) >= 0;
+    const nRowIsValid = this.props.nRows.includes(nextParams.nRow);
+    const nColIsValid = this.props.nCols.includes(nextParams.nCol);
 
     // 今回のユースケースでは必要ないが、一応厳しくチェック
     const nMineIsValid =
-      this.props.nMines.indexOf(nextParams.nMine) >= 0 &&
+      this.props.nMines.includes(nextParams.nMine) &&
       nextParams.nMine < nextParams.nRow * nextParams.nCol;
 
     if (nRowIsValid && nColIsValid && nMineIsValid) {
@@ -62,7 +73,7 @@ class Console extends React.Component {
     return (
       <form
         style={ConsoleStyle.base}
-        onSubmit={this.handleSubmit.bind(this)}
+        onSubmit={this.handleSubmit}
       >
         <ul style={ConsoleStyle.ul}>
           <li style={[ConsoleStyle.li.base, ConsoleStyle.li.notLastChild]}>

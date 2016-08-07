@@ -1,5 +1,7 @@
+import bindAll from 'lodash.bindall';
 import React from 'react';
 import Radium from 'radium';
+import update from 'react-addons-update';
 import Console from './Console';
 import Field from './Field';
 import MissionData from './MissionData';
@@ -10,31 +12,23 @@ class Mission extends React.Component {
     return {
       ONGOING: 0,
       FAILED: 1,
-      COMPLETE: 2,
+      COMPLETE: 2
     };
-  }
-
-  // TODO JSON APIサーバーを実装してそこから読み込むようにする
-  static getDataFromServer(params) {
-    return new MissionData(params).build().map(grid => {
-      grid.isRevealed = false;
-      return grid;
-    });
   }
 
   constructor(props) {
     super(props);
+    bindAll(this, ['handleParamsChange', 'handleRevealing']);
 
     this.state = {
       data: [],
       params: { nRow: 5, nCol: 5, nMine: 5 },
-      status: this.constructor.STATUS.ONGOING,
+      status: this.constructor.STATUS.ONGOING
     };
   }
 
   componentDidMount() {
-    const nextData = this.constructor.getDataFromServer(this.state.params);
-    this.setState({ data: nextData });
+    this.handleParamsChange(this.state.params);
   }
 
   componentDidUpdate() {
@@ -48,7 +42,16 @@ class Mission extends React.Component {
   }
 
   findGridById(gridId) {
-    return this.state.data.filter(grid => grid.id === gridId).shift();
+    return this.state.data.filter((grid) => grid.id === gridId).shift();
+  }
+
+  // TODO JSON APIサーバーを実装してそこから読み込むようにする
+  handleParamsChange(params) {
+    const data = new MissionData(params).build().map((grid) =>
+      update(grid, { $merge: { isRevealed: false } })
+    );
+
+    this.setState({ data, params, status: this.constructor.STATUS.ONGOING });
   }
 
   handleRevealing(gridId) {
@@ -62,28 +65,16 @@ class Mission extends React.Component {
     }
   }
 
-  handleParamsChange(nextParams) {
-    const nextData = this.constructor.getDataFromServer(nextParams);
-
-    this.setState({
-      data: nextData,
-      params: nextParams,
-      status: this.constructor.STATUS.ONGOING,
-    });
-  }
-
   isComplete() {
-    return (
-      this.state.data.every(grid => {
-        return grid.isRevealed && !grid.isMined || !grid.isRevealed && grid.isMined;
-      })
+    return this.state.data.every((grid) =>
+      (grid.isRevealed && !grid.isMined) || (!grid.isRevealed && grid.isMined)
     );
   }
 
   revealAllMinedGrids() {
-    const nextData = this.state.data.map(grid => {
-      if (grid.isMined) grid.isRevealed = true;
-      return grid;
+    const nextData = this.state.data.map((grid) => {
+      const isRevealed = grid.isMined ? true : grid.isRevealed;
+      return update(grid, { $merge: { isRevealed } });
     });
 
     this.setState({ data: nextData });
@@ -92,9 +83,9 @@ class Mission extends React.Component {
   revealGridsRecursivelyFrom(sourceGrid) {
     const targetGridIds = this.searchSafeGridIdsRecursivelyFrom(sourceGrid);
 
-    const nextData = this.state.data.map(grid => {
-      if (targetGridIds.has(grid.id)) grid.isRevealed = true;
-      return grid;
+    const nextData = this.state.data.map((grid) => {
+      const isRevealed = targetGridIds.has(grid.id) ? true : grid.isRevealed;
+      return update(grid, { $merge: { isRevealed } });
     });
 
     this.setState({ data: nextData });
@@ -113,7 +104,7 @@ class Mission extends React.Component {
     }
 
     if (sourceGrid.number === 0) {
-      sourceGrid.adjacentIds.forEach(gridId => {
+      sourceGrid.adjacentIds.forEach((gridId) => {
         if (accumulator.searchedGridIds.has(gridId)) return;
         const grid = this.findGridById(gridId);
 
@@ -132,14 +123,14 @@ class Mission extends React.Component {
     return (
       <div style={MissionStyle.base}>
         <Console
-          onParamsChange={this.handleParamsChange.bind(this)}
+          onParamsChange={this.handleParamsChange}
           params={this.state.params}
         />
         <Field
           data={this.state.data}
           shape={[this.state.params.nRow, this.state.params.nCol]}
           isMutable={this.state.status === this.constructor.STATUS.ONGOING}
-          onRevealing={this.handleRevealing.bind(this)}
+          onRevealing={this.handleRevealing}
         />
       </div>
     );
