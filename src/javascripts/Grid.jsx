@@ -8,7 +8,7 @@ class Grid extends React.Component {
     return {
       UNMARKED: 0,
       MARKED: 1,
-      REVEALED: 2,
+      REVEALED: 2
     };
   }
 
@@ -20,7 +20,7 @@ class Grid extends React.Component {
       isMined: React.PropTypes.bool.isRequired,
       onMarking: React.PropTypes.func.isRequired,
       onRevealing: React.PropTypes.func.isRequired,
-      onUnmarking: React.PropTypes.func.isRequired,
+      onUnmarking: React.PropTypes.func.isRequired
     };
   }
 

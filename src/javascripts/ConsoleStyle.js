@@ -1,21 +1,21 @@
 const ConsoleStyle = {
   base: {
     marginBottom: '10px',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   ul: {
     listStyleType: 'none',
     padding: 0,
-    margin: '0 0 10px',
+    margin: '0 0 10px'
   },
   li: {
     base: {
-      display: 'inline-block',
+      display: 'inline-block'
     },
     notLastChild: {
-      marginRight: '10px',
-    },
-  },
+      marginRight: '10px'
+    }
+  }
 };
 
 export default ConsoleStyle;

@@ -13,8 +13,8 @@ class Console extends React.Component {
       params: React.PropTypes.shape({
         nRow: React.PropTypes.number.isRequired,
         nCol: React.PropTypes.number.isRequired,
-        nMine: React.PropTypes.number.isRequired,
-      }),
+        nMine: React.PropTypes.number.isRequired
+      })
     };
   }
 
@@ -22,7 +22,7 @@ class Console extends React.Component {
     return {
       nRows: [5, 6, 7, 8, 9, 10],
       nCols: [5, 6, 7, 8, 9, 10],
-      nMines: [5, 10, 15, 20, 25],
+      nMines: [5, 10, 15, 20, 25]
     };
   }
 
@@ -53,7 +53,7 @@ class Console extends React.Component {
     const nextParams = {
       nRow: Number(this.childComponents.nRow.value),
       nCol: Number(this.childComponents.nCol.value),
-      nMine: Number(this.childComponents.nMine.value),
+      nMine: Number(this.childComponents.nMine.value)
     };
 
     const nRowIsValid = this.props.nRows.includes(nextParams.nRow);

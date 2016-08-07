@@ -39,7 +39,7 @@ export default class MissionData {
           id: i,
           isMined: this.minedGridIds.includes(i),
           adjacentIds: adjacentGridIds,
-          number,
+          number
         };
       })
     );

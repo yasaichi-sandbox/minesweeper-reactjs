@@ -12,7 +12,7 @@ class Mission extends React.Component {
     return {
       ONGOING: 0,
       FAILED: 1,
-      COMPLETE: 2,
+      COMPLETE: 2
     };
   }
 
@@ -23,7 +23,7 @@ class Mission extends React.Component {
     this.state = {
       data: [],
       params: { nRow: 5, nCol: 5, nMine: 5 },
-      status: this.constructor.STATUS.ONGOING,
+      status: this.constructor.STATUS.ONGOING
     };
   }
 

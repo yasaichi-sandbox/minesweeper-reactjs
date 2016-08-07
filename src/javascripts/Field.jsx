@@ -11,7 +11,7 @@ class Field extends React.Component {
       data: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
       shape: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
       isMutable: React.PropTypes.bool.isRequired,
-      onRevealing: React.PropTypes.func.isRequired,
+      onRevealing: React.PropTypes.func.isRequired
     };
   }
 
@@ -20,7 +20,7 @@ class Field extends React.Component {
     bindAll(this, ['handleMarking', 'handleUnmarking']);
 
     this.state = {
-      markedGridIds: new Set(),
+      markedGridIds: new Set()
     };
   }
 
