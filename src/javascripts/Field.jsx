@@ -59,20 +59,18 @@ class Field extends React.Component {
     let onRevealing = isMutable ? this.props.onRevealing : () => {};
     let onUnmarking = isMutable ? this.handleUnmarking : () => {};
 
-    let grids = this.props.data.map(grid => {
-      return (
-        <Grid
-          key={grid.id}
-          id={grid.id}
-          number={grid.number}
-          status={this.getStatusOf(grid)}
-          isMined={grid.isMined}
-          onMarking={onMarking}
-          onRevealing={onRevealing}
-          onUnmarking={onUnmarking}
-        />
-      );
-    });
+    const grids = this.props.data.map(grid =>
+      <Grid
+        key={grid.id}
+        id={grid.id}
+        number={grid.number}
+        status={this.getStatusOf(grid)}
+        isMined={grid.isMined}
+        onMarking={onMarking}
+        onRevealing={onRevealing}
+        onUnmarking={onUnmarking}
+      />
+    );
 
     return (
       <div style={[FieldStyle.base, FieldStyle.shape(...this.props.shape)]}>

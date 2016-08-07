@@ -75,10 +75,8 @@ class Mission extends React.Component {
   }
 
   isComplete() {
-    return (
-      this.state.data.every(grid => {
-        return (grid.isRevealed && !grid.isMined) || (!grid.isRevealed && grid.isMined);
-      })
+    return this.state.data.every(grid =>
+      (grid.isRevealed && !grid.isMined) || (!grid.isRevealed && grid.isMined)
     );
   }
 
