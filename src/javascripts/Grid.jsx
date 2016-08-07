@@ -46,9 +46,9 @@ class Grid extends React.Component {
       return this.props.isMined ? '●～*' : this.props.number.toString();
     } else if (this.isMarked) {
       return '?';
-    } else {
-      return '';
     }
+
+    return '';
   }
 
   handleContextMenu(e) {

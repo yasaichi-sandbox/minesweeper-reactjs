@@ -36,9 +36,9 @@ class Field extends React.Component {
       return Grid.STATUS.MARKED;
     } else if (grid.isRevealed) {
       return Grid.STATUS.REVEALED;
-    } else {
-      return Grid.STATUS.UNMARKED;
     }
+
+    return Grid.STATUS.UNMARKED;
   }
 
   handleMarking(gridId) {
