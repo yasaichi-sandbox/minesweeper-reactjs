@@ -1,3 +1,5 @@
+import range from 'lodash.range';
+
 export default class MissionData {
   constructor(params) {
     this.nRow = params.nRow;
@@ -20,12 +22,12 @@ export default class MissionData {
   build() {
     const nGrid = this.nRow * this.nCol;
 
-    this.minedGridIds = this._range(0, nGrid)
+    this.minedGridIds = range(nGrid)
       .sort(() => Math.random() - 0.5)
       .slice(0, this.nMine);
 
     return (
-      this._range(0, nGrid).map(i => {
+      range(nGrid).map(i => {
         const adjacentGridIds = this.getAdjacentGridIdsOf(i);
         const number = adjacentGridIds
           .filter(id => this.minedGridIds.indexOf(id) >= 0)
@@ -39,14 +41,5 @@ export default class MissionData {
         };
       })
     );
-  }
-
-  // immutable-jsとか使っても良かったけどサイズ大きくなりそうだったので自作
-  _range(first, last) {
-    const diff = last - first;
-
-    return Array
-      .apply(null, { length: diff > 0 ? diff : 0 })
-      .map((_, i) => first + i);
   }
 }
