@@ -1,7 +1,14 @@
 {
   "name": "minesweeper-reactjs",
-  "version": "1.0.0",
   "description": "A minesweeper clone implemented with React.js",
+  "author": "yasaichi",
+  "private": true,
+  "homepage": "https://github.com/yasaichi/minesweeper-reactjs",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:yasaichi/minesweeper-reactjs.git"
+  },
   "scripts": {
     "boot": "npm-run-all clean --parallel watch server",
     "build": "npm-run-all --parallel build:*",
@@ -19,16 +26,6 @@
     "watch:html": "npm run build:html -- -w",
     "watch:js": "watchify src/javascripts/main.jsx -d --extension=.jsx -o dist/javascripts/app.js -p [minifyify --map app.js.map --output dist/javascripts/app.js.map] -t babelify"
   },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:yasaichi/minesweeper-reactjs.git"
-  },
-  "author": "yasaichi",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/yasaichi/minesweeper-reactjs/issues"
-  },
-  "homepage": "https://github.com/yasaichi/minesweeper-reactjs",
   "dependencies": {
     "lodash.bindall": "^4.3.0",
     "lodash.range": "^3.1.7",
