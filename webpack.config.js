@@ -4,7 +4,8 @@ const saveLicense = require('uglify-save-license');
 module.exports = {
   context: __dirname,
   devServer: {
-    contentBase: './dist'
+    contentBase: './dist',
+    inline: true
   },
   devtool: process.env.NODE_ENV === 'production' ? false : 'cheap-module-source-map',
   entry: {
