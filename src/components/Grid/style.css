@@ -1,0 +1,10 @@
+.base {
+  float: left;
+  display: inline-block;
+  width: 45px;
+  height: 45px;
+  line-height: 46px;
+  border-right: solid 1px black;
+  border-bottom: solid 1px black;
+  text-align: center;
+}

@@ -1,0 +1,18 @@
+.base {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 0 10px;
+}
+
+.li {
+  display: inline-block;
+}
+
+.li:not(:last-child) {
+  margin-right: 10px;
+}

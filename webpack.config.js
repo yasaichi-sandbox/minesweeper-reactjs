@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const saveLicense = require('uglify-save-license');
 
 module.exports = {
@@ -15,19 +16,26 @@ module.exports = {
     path: './dist',
     filename: 'javascripts/[name].js'
   },
-  resolve: {
-    extensions: ['', '.js', '.jsx']
-  },
-  plugins: [
-    new webpack.optimize.UglifyJsPlugin({ output: { comments: saveLicense } })
-  ],
   module: {
     loaders: [
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         loader: 'babel'
+      },
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract('style', [
+          'css?modules&minimize',
+        ])
       }
     ]
+  },
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin({ output: { comments: saveLicense } }),
+    new ExtractTextPlugin('stylesheets/[name].css')
+  ]
+  resolve: {
+    extensions: ['', '.js', '.jsx']
   }
 };
