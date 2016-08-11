@@ -1,4 +1,4 @@
-const ConsoleStyle = {
+export default {
   base: {
     marginBottom: '10px',
     textAlign: 'center'
@@ -17,5 +17,3 @@ const ConsoleStyle = {
     }
   }
 };
-
-export default ConsoleStyle;

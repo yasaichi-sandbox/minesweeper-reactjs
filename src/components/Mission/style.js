@@ -1,4 +1,4 @@
-const MissionStyle = {
+export default {
   base: {
     display: 'inline-block',
     margin: '10px',
@@ -6,5 +6,3 @@ const MissionStyle = {
     border: 'solid 1px black'
   }
 };
-
-export default MissionStyle;

@@ -20,7 +20,7 @@
     "build:js": "webpack --display-error-details",
     "clean": "rimraf dist && mkdir -p dist/javascripts dist/stylesheets",
     "deploy": "NODE_ENV=production npm-run-all clean build && gh-pages -d dist",
-    "lint": "eslint src/javascripts --ext .js,.jsx",
+    "lint": "eslint src --ext .js,.jsx",
     "update:apply": "npm run update:check -- --upgradeAll",
     "update:check": "npm-check-updates",
     "watch": "npm-run-all --parallel watch:*",

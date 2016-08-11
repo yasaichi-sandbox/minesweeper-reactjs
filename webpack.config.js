@@ -8,7 +8,7 @@ module.exports = {
   },
   devtool: process.env.NODE_ENV === 'production' ? false : 'cheap-module-source-map',
   entry: {
-    app: './src/javascripts/main.jsx'
+    app: './src/index.jsx'
   },
   output: {
     path: './dist',

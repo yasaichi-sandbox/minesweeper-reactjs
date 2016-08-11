@@ -1,7 +1,7 @@
 import bindAll from 'lodash.bindall';
 import React from 'react';
 import Radium from 'radium';
-import GridStyle from './GridStyle';
+import styles from './style';
 
 class Grid extends React.Component {
   static get STATUS() {
@@ -68,7 +68,7 @@ class Grid extends React.Component {
   render() {
     return (
       <div
-        style={GridStyle.base}
+        style={styles.base}
         onContextMenu={this.handleContextMenu}
         onMouseDown={this.handleMouseDown}
       >

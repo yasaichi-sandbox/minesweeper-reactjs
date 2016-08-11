@@ -1,8 +1,8 @@
 import bindAll from 'lodash.bindall';
 import React from 'react';
 import Radium from 'radium';
-import Grid from './Grid';
-import FieldStyle from './FieldStyle';
+import Grid from '../Grid';
+import styles from './style';
 
 class Field extends React.Component {
   // TODO static propertiesを使いたい
@@ -73,7 +73,7 @@ class Field extends React.Component {
     );
 
     return (
-      <div style={[FieldStyle.base, FieldStyle.shape(...this.props.shape)]}>
+      <div style={[styles.base, styles.shape(...this.props.shape)]}>
         {grids}
       </div>
     );

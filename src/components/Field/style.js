@@ -1,4 +1,4 @@
-const FieldStyle = {
+export default {
   base: {
     borderLeft: 'solid 1px black',
     borderTop: 'solid 1px black'
@@ -10,5 +10,3 @@ const FieldStyle = {
     };
   }
 };
-
-export default FieldStyle;

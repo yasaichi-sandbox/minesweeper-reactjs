@@ -1,6 +1,6 @@
 import range from 'lodash.range';
 
-export default class MissionData {
+export default class Data {
   constructor(params) {
     this.nRow = params.nRow;
     this.nCol = params.nCol;

@@ -1,4 +1,4 @@
-const GridStyle = {
+export default {
   base: {
     float: 'left',
     display: 'inline-block',
@@ -10,5 +10,3 @@ const GridStyle = {
     textAlign: 'center'
   }
 };
-
-export default GridStyle;
