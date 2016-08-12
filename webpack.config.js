@@ -33,8 +33,8 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.UglifyJsPlugin({ output: { comments: saveLicense } }),
-    new ExtractTextPlugin('stylesheets/[name].css')
-  ]
+    new ExtractTextPlugin('stylesheets/app.css')
+  ],
   resolve: {
     extensions: ['', '.js', '.jsx']
   }
