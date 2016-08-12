@@ -74,7 +74,7 @@ export default class Field extends React.Component {
 
     return (
       <div
-        className={styles.base}
+        className={styles.root}
         style={{
           width: `${46 * this.props.nCol}px`,
           height: `${46 * this.props.nRow}px`

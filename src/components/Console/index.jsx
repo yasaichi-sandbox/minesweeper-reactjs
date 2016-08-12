@@ -71,16 +71,16 @@ export default class Console extends React.Component {
   render() {
     return (
       <form
-        className={styles.base}
+        className={styles.root}
         onSubmit={this.handleSubmit}
       >
-        <ul className={styles.ul}>
-          <li className={styles.li}>
+        <ul className={styles.configList}>
+          <li className={styles.configListItem}>
             {this.buildSelectBoxOf('nRow')}
             <span> x </span>
             {this.buildSelectBoxOf('nCol')}
           </li>
-          <li className={styles.li}>
+          <li className={styles.configListItem}>
             <span>●～*</span>
             <span> x </span>
             {this.buildSelectBoxOf('nMine')}

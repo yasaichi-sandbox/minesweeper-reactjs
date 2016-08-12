@@ -120,7 +120,7 @@ export default class Mission extends React.Component {
 
   render() {
     return (
-      <div className={styles.base}>
+      <div className={styles.root}>
         <Console
           onParamsChange={this.handleParamsChange}
           params={this.state.params}
