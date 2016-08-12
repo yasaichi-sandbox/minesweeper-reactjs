@@ -1,16 +1,16 @@
 import bindAll from 'lodash.bindall';
 import React from 'react';
-import Radium from 'radium';
-import Grid from './Grid';
-import FieldStyle from './FieldStyle';
+import Grid from '../Grid';
+import styles from './style.css';
 
-class Field extends React.Component {
+export default class Field extends React.Component {
   // TODO static propertiesを使いたい
   static get propTypes() {
     return {
       data: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-      shape: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
       isMutable: React.PropTypes.bool.isRequired,
+      nCol: React.PropTypes.number.isRequired,
+      nRow: React.PropTypes.number.isRequired,
       onRevealing: React.PropTypes.func.isRequired
     };
   }
@@ -73,11 +73,15 @@ class Field extends React.Component {
     );
 
     return (
-      <div style={[FieldStyle.base, FieldStyle.shape(...this.props.shape)]}>
+      <div
+        className={styles.root}
+        style={{
+          width: `${46 * this.props.nCol}px`,
+          height: `${46 * this.props.nRow}px`
+        }}
+      >
         {grids}
       </div>
     );
   }
 }
-
-export default Radium(Field);

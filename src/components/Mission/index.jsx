@@ -1,13 +1,12 @@
 import bindAll from 'lodash.bindall';
 import React from 'react';
-import Radium from 'radium';
 import update from 'react-addons-update';
-import Console from './Console';
-import Field from './Field';
-import MissionData from './MissionData';
-import MissionStyle from './MissionStyle';
+import Console from '../Console';
+import Field from '../Field';
+import Data from './Data';
+import styles from './style.css';
 
-class Mission extends React.Component {
+export default class Mission extends React.Component {
   static get STATUS() {
     return {
       ONGOING: 0,
@@ -47,7 +46,7 @@ class Mission extends React.Component {
 
   // TODO JSON APIサーバーを実装してそこから読み込むようにする
   handleParamsChange(params) {
-    const data = new MissionData(params).build().map((grid) =>
+    const data = new Data(params).build().map((grid) =>
       update(grid, { $merge: { isRevealed: false } })
     );
 
@@ -121,20 +120,19 @@ class Mission extends React.Component {
 
   render() {
     return (
-      <div style={MissionStyle.base}>
+      <div className={styles.root}>
         <Console
           onParamsChange={this.handleParamsChange}
           params={this.state.params}
         />
         <Field
           data={this.state.data}
-          shape={[this.state.params.nRow, this.state.params.nCol]}
           isMutable={this.state.status === this.constructor.STATUS.ONGOING}
+          nCol={this.state.params.nCol}
+          nRow={this.state.params.nRow}
           onRevealing={this.handleRevealing}
         />
       </div>
     );
   }
 }
-
-export default Radium(Mission);

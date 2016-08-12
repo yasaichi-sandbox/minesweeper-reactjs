@@ -1,9 +1,8 @@
 import bindAll from 'lodash.bindall';
 import React from 'react';
-import Radium from 'radium';
-import ConsoleStyle from './ConsoleStyle';
+import styles from './style.css';
 
-class Console extends React.Component {
+export default class Console extends React.Component {
   static get propTypes() {
     return {
       nRows: React.PropTypes.arrayOf(React.PropTypes.number),
@@ -72,16 +71,16 @@ class Console extends React.Component {
   render() {
     return (
       <form
-        style={ConsoleStyle.base}
+        className={styles.root}
         onSubmit={this.handleSubmit}
       >
-        <ul style={ConsoleStyle.ul}>
-          <li style={[ConsoleStyle.li.base, ConsoleStyle.li.notLastChild]}>
+        <ul className={styles.configList}>
+          <li className={styles.configListItem}>
             {this.buildSelectBoxOf('nRow')}
             <span> x </span>
             {this.buildSelectBoxOf('nCol')}
           </li>
-          <li style={ConsoleStyle.li.base}>
+          <li className={styles.configListItem}>
             <span>●～*</span>
             <span> x </span>
             {this.buildSelectBoxOf('nMine')}
@@ -92,5 +91,3 @@ class Console extends React.Component {
     );
   }
 }
-
-export default Radium(Console);
