@@ -1,30 +1,40 @@
+:root {
+  --side-length: 46px;
+}
+
 .base {
   float: left;
   display: inline-block;
-  width: 45px;
-  height: 45px;
-  line-height: 46px;
-  border-right: solid 1px black;
-  border-bottom: solid 1px black;
+  width: var(--side-length);
+  height: var(--side-length);
+  box-sizing: border-box;
   text-align: center;
-}
-
-.marked {
-  composes: fontAwesome from '../shared/styles/typography.css';
-  composes: base;
-  color: #fb0000;
 }
 
 .revealed {
   composes: base;
+  border: 2px solid #6d6d6d;
+  line-height: calc(var(--side-length) - 2px * 2);
 }
 
-.unmarked {
+.unrevealed {
+  composes: bump from '../shared/styles/box.css';
   composes: base;
+  line-height: calc(var(--side-length) - 4px * 2);
+}
+
+.marked {
+  composes: fontAwesome from '../shared/styles/typography.css';
+  composes: unrevealed;
+  color: #fb0000;
 }
 
 .mined {
   composes: fontAwesome from '../shared/styles/typography.css';
   composes: revealed;
   background-color: #fb0000;
+}
+
+.unmarked {
+  composes: unrevealed;
 }
