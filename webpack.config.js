@@ -8,7 +8,7 @@ module.exports = {
     contentBase: './dist',
     inline: true
   },
-  devtool: process.env.NODE_ENV === 'production' ? false : 'cheap-module-source-map',
+  devtool: process.env.NODE_ENV === 'production' ? false : 'source-map',
   entry: {
     app: './src/index.jsx'
   },
