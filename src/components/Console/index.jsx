@@ -1,6 +1,7 @@
 import bindAll from 'lodash.bindall';
 import React from 'react';
 import styles from './style.css';
+import typographyStyles from '../shared/styles/typography.css';
 
 export default class Console extends React.Component {
   static get propTypes() {
@@ -81,7 +82,7 @@ export default class Console extends React.Component {
             {this.buildSelectBoxOf('nCol')}
           </li>
           <li className={styles.configListItem}>
-            <span>●～*</span>
+            <span className={typographyStyles.fontAwesome}></span>
             <span> x </span>
             {this.buildSelectBoxOf('nMine')}
           </li>
