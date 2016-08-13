@@ -42,11 +42,11 @@ export default class Grid extends React.Component {
 
   get statusText() {
     if (this.isMarked) {
-      return '';
+      return ''; // fa-flag
     } else if (this.isUnmarked || !this.isRevealed) {
       return null;
     } else if (this.props.isMined) {
-      return '';
+      return ''; // fa-bomb
     } else if (this.props.number === 0) {
       return null;
     }
