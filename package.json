@@ -52,6 +52,8 @@
     "normalize-styl": "^3.0.3",
     "npm-check-updates": "^2.8.0",
     "npm-run-all": "^2.3.0",
+    "postcss-cssnext": "^2.7.0",
+    "postcss-loader": "^0.9.1",
     "pug-cli": "^1.0.0-alpha6",
     "rimraf": "^2.5.4",
     "style-loader": "^0.13.1",

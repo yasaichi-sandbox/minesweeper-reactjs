@@ -1,6 +1,7 @@
-const webpack = require('webpack');
+const cssnext = require('postcss-cssnext');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const saveLicense = require('uglify-save-license');
+const webpack = require('webpack');
 
 module.exports = {
   context: __dirname,
@@ -27,6 +28,7 @@ module.exports = {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract('style', [
           'css?modules&minimize',
+          'postcss'
         ])
       }
     ]
@@ -39,6 +41,9 @@ module.exports = {
       output: { comments: saveLicense }
     }),
     new ExtractTextPlugin('stylesheets/app.css')
+  ],
+  postcss: [
+    cssnext
   ],
   resolve: {
     extensions: ['', '.js', '.jsx']
