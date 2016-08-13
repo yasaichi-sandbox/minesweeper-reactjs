@@ -1,0 +1,14 @@
+.base {
+  background-color: #bbb;
+  border: 4px solid;
+}
+
+.bump {
+  composes: base;
+  border-color: #fff #6d6d6d #6d6d6d #fff;
+}
+
+.dent {
+  composes: base;
+  border-color: #6d6d6d #fff #fff #6d6d6d;
+}
