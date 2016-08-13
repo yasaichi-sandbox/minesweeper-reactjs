@@ -41,25 +41,33 @@ export default class Grid extends React.Component {
   }
 
   get statusText() {
-    if (this.isRevealed) {
-      return this.props.isMined ? '' : this.props.number.toString();
-    } else if (this.isMarked) {
+    if (this.isMarked) {
       return '';
+    } else if (this.isUnmarked || !this.isRevealed) {
+      return null;
+    } else if (this.props.isMined) {
+      return '';
+    } else if (this.props.number === 0) {
+      return null;
     }
 
-    return '';
+    return this.props.number.toString();
   }
 
   get styleClassName() {
-    if (this.isRevealed) {
-      return this.props.isMined ? 'mined' : 'revealed';
-    } else if (this.isMarked) {
+    if (this.isMarked) {
       return 'marked';
     } else if (this.isUnmarked) {
       return 'unmarked';
+    } else if (!this.isRevealed) {
+      return null;
+    } else if (this.props.isMined) {
+      return 'mined';
+    } else if (this.props.number === 0) {
+      return 'revealed';
     }
 
-    return null;
+    return `number${this.props.number}`;
   }
 
   handleContextMenu(e) {

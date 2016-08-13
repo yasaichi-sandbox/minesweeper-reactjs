@@ -1,5 +1,13 @@
 :root {
   --side-length: 46px;
+  --number-color-1: #00f;
+  --number-color-2: #0f7001;
+  --number-color-3: #fb0000;
+  --number-color-4: #1c2c52;
+  --number-color-5: #994C00;
+  --number-color-6: #0090a8;
+  --number-color-7: #000;
+  --number-color-8: #6d6d6d;
 }
 
 .base {
@@ -14,6 +22,7 @@
 .revealed {
   composes: base;
   border: 2px solid #6d6d6d;
+  font-weight: bold;
   line-height: calc(var(--side-length) - 2px * 2);
 }
 
@@ -33,6 +42,46 @@
   composes: fontAwesome from '../shared/styles/typography.css';
   composes: revealed;
   background-color: #fb0000;
+}
+
+.number1 {
+  composes: revealed;
+  color: var(--number-color-1);
+}
+
+.number2 {
+  composes: revealed;
+  color: var(--number-color-2);
+}
+
+.number3 {
+  composes: revealed;
+  color: var(--number-color-3);
+}
+
+.number4 {
+  composes: revealed;
+  color: var(--number-color-4);
+}
+
+.number5 {
+  composes: revealed;
+  color: var(--number-color-5);
+}
+
+.number6 {
+  composes: revealed;
+  color: var(--number-color-6);
+}
+
+.number7 {
+  composes: revealed;
+  color: var(--number-color-7);
+}
+
+.number8 {
+  composes: revealed;
+  color: var(--number-color-8);
 }
 
 .unmarked {
