@@ -42,12 +42,24 @@ export default class Grid extends React.Component {
 
   get statusText() {
     if (this.isRevealed) {
-      return this.props.isMined ? '●～*' : this.props.number.toString();
+      return this.props.isMined ? '' : this.props.number.toString();
     } else if (this.isMarked) {
-      return '?';
+      return '';
     }
 
     return '';
+  }
+
+  get styleClassName() {
+    if (this.isRevealed) {
+      return this.props.isMined ? 'mined' : 'revealed';
+    } else if (this.isMarked) {
+      return 'marked';
+    } else if (this.isUnmarked) {
+      return 'unmarked';
+    }
+
+    return null;
   }
 
   handleContextMenu(e) {
@@ -67,7 +79,7 @@ export default class Grid extends React.Component {
   render() {
     return (
       <div
-        className={styles.base}
+        className={styles[this.styleClassName]}
         onContextMenu={this.handleContextMenu}
         onMouseDown={this.handleMouseDown}
       >
