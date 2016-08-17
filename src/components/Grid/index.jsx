@@ -46,7 +46,7 @@ export default class Grid extends React.Component {
     } else if (this.isUnmarked || !this.isRevealed) {
       return null;
     } else if (this.props.isMined) {
-      return ''; // fa-bomb
+      return ''; // fa-certificate
     } else if (this.props.number === 0) {
       return null;
     }
